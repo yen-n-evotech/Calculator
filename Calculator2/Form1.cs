@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Calculator2
@@ -13,7 +6,7 @@ namespace Calculator2
     public partial class Form1 : Form
     {
         double result = 0;
-        private object calc;
+        string calc = "";
 
         public Form1()
         {
@@ -28,36 +21,67 @@ namespace Calculator2
             {
                 if (!displayText.Text.Contains(".")) // "."が一回だけ表示できる
                 {
-                    displayText.Text += ".";
+                    displayText.Text += number.Text;
                 }
             }
             else
             {
-                displayText.Text = displayText.Text + number.Text;
+                displayText.Text += number.Text;
             }          
         }
 
         private void SignBtnClicked(object sender, EventArgs e)
         {
             double number;
-            number = Convert.ToDouble(displayText.Text) * (-1.0);
+            number = Double.Parse(displayText.Text) * (-1.0);
+            displayText.Text = System.Convert.ToString(number);
+        }
+
+        private void PercentBtnClicked(object sender, EventArgs e)
+        {
+            double number;
+            number = Double.Parse(displayText.Text) / (100);
+            displayText.Text = System.Convert.ToString(number);
         }
 
         private void CalcBtnClicked(object sender, EventArgs e)
         {
             Button number = (Button)sender;
-            calc = Convert.ToDouble(number.Text);
-            result = Convert.ToDouble(displayText);
+            calc = number.Text;
+            result = Double.Parse(displayText.Text);
+            displayText.Text = "";
+            calcShowLabel.Text = System.Convert.ToString(result) + " " + calc;
         }
 
         private void equalBtnClicked(object sender, EventArgs e)
         {
-            Button number = (Button)sender;
+            calcShowLabel.Text = "";
             switch(calc)
             {
-                //case "+":
-                    
+                case "+":
+                    displayText.Text = (result + Double.Parse(displayText.Text)).ToString();
+                    break;
+                case "-":
+                    displayText.Text = (result - Double.Parse(displayText.Text)).ToString();
+                    break;
+                case "x":
+                    displayText.Text = (result * Double.Parse(displayText.Text)).ToString(); 
+                    break;
+                case "/":
+                    displayText.Text = (result / Double.Parse(displayText.Text)).ToString();
+                    break;
             }
+        }
+
+        private void DelBtnClicked(object sender, EventArgs e)
+        {
+            displayText.Text = displayText.Text.Remove(displayText.TextLength - 1);
+        }
+
+        private void ClearBtnClicked(object sender, EventArgs e)
+        {
+            displayText.Clear();
+            calcShowLabel.Text = "";
         }
     }
 }

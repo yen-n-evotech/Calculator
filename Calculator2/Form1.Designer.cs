@@ -45,10 +45,11 @@
             this.buttonSubtract = new System.Windows.Forms.Button();
             this.buttonMultiply = new System.Windows.Forms.Button();
             this.buttonDevide = new System.Windows.Forms.Button();
-            this.buttonPercent = new System.Windows.Forms.Button();
-            this.buttonClear = new System.Windows.Forms.Button();
-            this.buttonDelete = new System.Windows.Forms.Button();
+            this.percentButton = new System.Windows.Forms.Button();
+            this.clearButton = new System.Windows.Forms.Button();
+            this.delButton = new System.Windows.Forms.Button();
             this.buttonCount = new System.Windows.Forms.Button();
+            this.calcShowLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // displayText
@@ -270,38 +271,41 @@
             this.buttonDevide.UseVisualStyleBackColor = false;
             this.buttonDevide.Click += new System.EventHandler(this.CalcBtnClicked);
             // 
-            // buttonPercent
+            // percentButton
             // 
-            this.buttonPercent.BackColor = System.Drawing.SystemColors.Info;
-            this.buttonPercent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPercent.Location = new System.Drawing.Point(12, 78);
-            this.buttonPercent.Name = "buttonPercent";
-            this.buttonPercent.Size = new System.Drawing.Size(82, 62);
-            this.buttonPercent.TabIndex = 17;
-            this.buttonPercent.Text = "%";
-            this.buttonPercent.UseVisualStyleBackColor = false;
+            this.percentButton.BackColor = System.Drawing.SystemColors.Info;
+            this.percentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.percentButton.Location = new System.Drawing.Point(12, 78);
+            this.percentButton.Name = "percentButton";
+            this.percentButton.Size = new System.Drawing.Size(82, 62);
+            this.percentButton.TabIndex = 17;
+            this.percentButton.Text = "%";
+            this.percentButton.UseVisualStyleBackColor = false;
+            this.percentButton.Click += new System.EventHandler(this.PercentBtnClicked);
             // 
-            // buttonClear
+            // clearButton
             // 
-            this.buttonClear.BackColor = System.Drawing.SystemColors.Info;
-            this.buttonClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonClear.Location = new System.Drawing.Point(99, 78);
-            this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(82, 62);
-            this.buttonClear.TabIndex = 18;
-            this.buttonClear.Text = "C";
-            this.buttonClear.UseVisualStyleBackColor = false;
+            this.clearButton.BackColor = System.Drawing.SystemColors.Info;
+            this.clearButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.clearButton.Location = new System.Drawing.Point(99, 78);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(82, 62);
+            this.clearButton.TabIndex = 18;
+            this.clearButton.Text = "C";
+            this.clearButton.UseVisualStyleBackColor = false;
+            this.clearButton.Click += new System.EventHandler(this.ClearBtnClicked);
             // 
-            // buttonDelete
+            // delButton
             // 
-            this.buttonDelete.BackColor = System.Drawing.SystemColors.Info;
-            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDelete.Location = new System.Drawing.Point(183, 78);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(82, 63);
-            this.buttonDelete.TabIndex = 19;
-            this.buttonDelete.Text = "Del";
-            this.buttonDelete.UseVisualStyleBackColor = false;
+            this.delButton.BackColor = System.Drawing.SystemColors.Info;
+            this.delButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.delButton.Location = new System.Drawing.Point(183, 78);
+            this.delButton.Name = "delButton";
+            this.delButton.Size = new System.Drawing.Size(82, 63);
+            this.delButton.TabIndex = 19;
+            this.delButton.Text = "Del";
+            this.delButton.UseVisualStyleBackColor = false;
+            this.delButton.Click += new System.EventHandler(this.DelBtnClicked);
             // 
             // buttonCount
             // 
@@ -316,16 +320,26 @@
             this.buttonCount.UseVisualStyleBackColor = false;
             this.buttonCount.Click += new System.EventHandler(this.equalBtnClicked);
             // 
+            // calcShowLabel
+            // 
+            this.calcShowLabel.AutoSize = true;
+            this.calcShowLabel.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.calcShowLabel.Location = new System.Drawing.Point(12, 32);
+            this.calcShowLabel.Name = "calcShowLabel";
+            this.calcShowLabel.Size = new System.Drawing.Size(0, 15);
+            this.calcShowLabel.TabIndex = 21;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowText;
             this.ClientSize = new System.Drawing.Size(368, 445);
+            this.Controls.Add(this.calcShowLabel);
             this.Controls.Add(this.buttonCount);
-            this.Controls.Add(this.buttonDelete);
-            this.Controls.Add(this.buttonClear);
-            this.Controls.Add(this.buttonPercent);
+            this.Controls.Add(this.delButton);
+            this.Controls.Add(this.clearButton);
+            this.Controls.Add(this.percentButton);
             this.Controls.Add(this.buttonDevide);
             this.Controls.Add(this.buttonMultiply);
             this.Controls.Add(this.buttonSubtract);
@@ -369,10 +383,11 @@
         private System.Windows.Forms.Button buttonSubtract;
         private System.Windows.Forms.Button buttonMultiply;
         private System.Windows.Forms.Button buttonDevide;
-        private System.Windows.Forms.Button buttonPercent;
-        private System.Windows.Forms.Button buttonClear;
-        private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.Button percentButton;
+        private System.Windows.Forms.Button clearButton;
+        private System.Windows.Forms.Button delButton;
         private System.Windows.Forms.Button buttonCount;
+        private System.Windows.Forms.Label calcShowLabel;
     }
 }
 
