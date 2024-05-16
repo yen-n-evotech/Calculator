@@ -3,20 +3,24 @@ using System.Windows.Forms;
 
 namespace Calculator2
 {
-    public partial class Form1 : Form
+    public partial class Calculator : Form
     {
         double result = 0;
         string calc = "";
 
-        public Form1()
+        public Calculator()
         {
             InitializeComponent();
         }
 
         private void NumberButtonClicked(object sender, EventArgs e)
-        {
-            Button number = (Button)sender;  //押したボタンの値を初期化
+        {            
+            if (displayText.Text == "0")
+            {
+                displayText.Clear();
+            }
 
+            Button number = (Button)sender;  // 押したボタンの値を初期化
             if (number.Text == ".")
             {
                 if (!displayText.Text.Contains(".")) // "."が一回だけ表示できる
@@ -43,20 +47,22 @@ namespace Calculator2
             number = Double.Parse(displayText.Text) / (100);
             displayText.Text = System.Convert.ToString(number);
         }
-
+        
         private void CalcBtnClicked(object sender, EventArgs e)
         {
+            equalButton.PerformClick();
+           // NumberButtonClicked(sender, e );
             Button number = (Button)sender;
             calc = number.Text;
             result = Double.Parse(displayText.Text);
             displayText.Text = "";
             calcShowLabel.Text = System.Convert.ToString(result) + " " + calc;
         }
-
+        
         private void equalBtnClicked(object sender, EventArgs e)
         {
             calcShowLabel.Text = "";
-            switch(calc)
+            switch(calc) 
             {
                 case "+":
                     displayText.Text = (result + Double.Parse(displayText.Text)).ToString();
