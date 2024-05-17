@@ -1,25 +1,34 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Calculator2
 {
     public partial class Calculator : Form
     {
+        double num1= 0, num2 = 0;
         double result = 0;
         string calc = "";
+        bool operationCheck = false;
+        int clickcount = 0;
 
         public Calculator()
         {
             InitializeComponent();
         }
 
+        private void Calculator_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void NumberButtonClicked(object sender, EventArgs e)
         {            
-            if (displayText.Text == "0")
+            if (displayText.Text == "0" || (operationCheck = true))
             {
                 displayText.Clear();
             }
-
+            operationCheck = false;
             Button number = (Button)sender;  // 押したボタンの値を初期化
             if (number.Text == ".")
             {
@@ -50,43 +59,59 @@ namespace Calculator2
         
         private void CalcBtnClicked(object sender, EventArgs e)
         {
-            equalButton.PerformClick();
-           // NumberButtonClicked(sender, e );
-            Button number = (Button)sender;
-            calc = number.Text;
-            result = Double.Parse(displayText.Text);
+            Button btn = (Button)sender;
+            if (num1 != 0)
+            {
+                equalButton.PerformClick();
+            }
+            calc = btn.Text;
+            num1 = Double.Parse(displayText.Text);
             displayText.Text = "";
-            calcShowLabel.Text = System.Convert.ToString(result) + " " + calc;
+            calcShowLabel.Text = System.Convert.ToString(num1) + " " + calc;
+            operationCheck = true;
+        
         }
         
         private void equalBtnClicked(object sender, EventArgs e)
         {
             calcShowLabel.Text = "";
+            num2 = Double.Parse(displayText.Text);
             switch(calc) 
             {
                 case "+":
-                    displayText.Text = (result + Double.Parse(displayText.Text)).ToString();
+                    displayText.Text = (num1 + num2).ToString();
                     break;
                 case "-":
-                    displayText.Text = (result - Double.Parse(displayText.Text)).ToString();
+                    displayText.Text = (num1 - num2).ToString();
                     break;
                 case "x":
-                    displayText.Text = (result * Double.Parse(displayText.Text)).ToString(); 
+                    displayText.Text = (num1 * num2).ToString(); 
                     break;
                 case "/":
-                    displayText.Text = (result / Double.Parse(displayText.Text)).ToString();
+                    displayText.Text = (num1 / num2).ToString();
+                    break;
+                default:
                     break;
             }
         }
 
         private void DelBtnClicked(object sender, EventArgs e)
         {
-            displayText.Text = displayText.Text.Remove(displayText.TextLength - 1);
+            if (displayText.Text.Length > 0)
+            {
+                displayText.Text = displayText.Text.Remove(displayText.TextLength - 1);
+            }
+            if (displayText.Text == "")
+            {
+                displayText.Text = "0";
+            }
         }
 
         private void ClearBtnClicked(object sender, EventArgs e)
         {
-            displayText.Clear();
+            displayText.Text = "0";
+            num1 = 0;
+            num2 = 0;            
             calcShowLabel.Text = "";
         }
     }
