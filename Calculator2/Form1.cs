@@ -67,28 +67,10 @@ namespace Calculator2
             {
                 if (selectCheck == false)
                 {
-                    num1 = Double.Parse(displayText.Text);
-                    switch (calc)
-                    {
-                        case "+":
-                            num2 += num1;
-                            break;
-                        case "-":
-                            num2 -= num1;
-                            break;
-                        case "x":
-                            num2 *= num1;
-                            break;
-                        case "/":
-                            num2 /= num1;
-                            break;
-                        default:
-                            break;
-                    }
+                    PerformCalculation(calc);
                     calc = btn.Text;
                     selectCheck = true;
                     clearCheck = true;
-                    displayText.Text = Convert.ToString(num2);
                 }  
                 else
                 {
@@ -97,31 +79,13 @@ namespace Calculator2
             }        
         }
         
-        private void equalBtnClicked(object sender, EventArgs e)
+        private void EqualBtnClicked(object sender, EventArgs e)
         {
             if (displayText.Text != "0")
             {
-                num1 = Double.Parse(displayText.Text);
-                switch (calc)
-                {
-                    case "+":
-                        num2 += num1;
-                        break;
-                    case "-":
-                        num2 -= num1;
-                        break;
-                    case "x":
-                        num2 *= num1;
-                        break;
-                    case "/":
-                        num2 /= num1;
-                        break;
-                    default:
-                        break;
-                }
+                PerformCalculation(calc);
                 selectCheck = false;
                 clearCheck = true;
-                displayText.Text = Convert.ToString(num2);
                 num2 = 0;
                 calc = "+";
             }            
@@ -154,6 +118,30 @@ namespace Calculator2
             displayText.Text = "0";
             num1 = 0;
             num2 = 0;
+        }
+
+        private void PerformCalculation (string calc)
+        {
+            num1 = Double.Parse(displayText.Text);
+            switch (calc)
+            {
+                case "+":
+                    num2 += num1;
+                    break;
+                case "-":
+                    num2 -= num1;
+                    break;
+                case "x":
+                    num2 *= num1;
+                    break;
+                case "/":
+                    num2 /= num1;
+                    break;
+                default:
+                    break;
+            }
+            displayText.Text = Convert.ToString(num2);
+
         }
     }
 }

@@ -324,7 +324,7 @@
             this.equalButton.TabIndex = 20;
             this.equalButton.Text = "=";
             this.equalButton.UseVisualStyleBackColor = false;
-            this.equalButton.Click += new System.EventHandler(this.equalBtnClicked);
+            this.equalButton.Click += new System.EventHandler(this.EqualBtnClicked);
             // 
             // Calculator
             // 
