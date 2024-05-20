@@ -50,7 +50,6 @@
             this.clearButton = new System.Windows.Forms.Button();
             this.delButton = new System.Windows.Forms.Button();
             this.equalButton = new System.Windows.Forms.Button();
-            this.calcShowLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // displayText
@@ -220,7 +219,7 @@
             this.buttonPoint.TabIndex = 12;
             this.buttonPoint.Text = ".";
             this.buttonPoint.UseVisualStyleBackColor = false;
-            this.buttonPoint.Click += new System.EventHandler(this.NumberButtonClicked);
+            this.buttonPoint.Click += new System.EventHandler(this.PointButtonClicked);
             // 
             // addButton
             // 
@@ -327,22 +326,12 @@
             this.equalButton.UseVisualStyleBackColor = false;
             this.equalButton.Click += new System.EventHandler(this.equalBtnClicked);
             // 
-            // calcShowLabel
-            // 
-            this.calcShowLabel.AutoSize = true;
-            this.calcShowLabel.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.calcShowLabel.Location = new System.Drawing.Point(12, 9);
-            this.calcShowLabel.Name = "calcShowLabel";
-            this.calcShowLabel.Size = new System.Drawing.Size(0, 15);
-            this.calcShowLabel.TabIndex = 21;
-            // 
             // Calculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowText;
             this.ClientSize = new System.Drawing.Size(404, 445);
-            this.Controls.Add(this.calcShowLabel);
             this.Controls.Add(this.equalButton);
             this.Controls.Add(this.delButton);
             this.Controls.Add(this.clearButton);
@@ -396,7 +385,6 @@
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.Button delButton;
         private System.Windows.Forms.Button equalButton;
-        private System.Windows.Forms.Label calcShowLabel;
     }
 }
 
