@@ -60,6 +60,7 @@
             this.displayText.ForeColor = System.Drawing.SystemColors.Window;
             this.displayText.Location = new System.Drawing.Point(12, 27);
             this.displayText.Name = "displayText";
+            this.displayText.ReadOnly = true;
             this.displayText.Size = new System.Drawing.Size(338, 33);
             this.displayText.TabIndex = 1;
             this.displayText.Text = "0";
@@ -193,7 +194,7 @@
             this.buttonValue.TabIndex = 10;
             this.buttonValue.Text = "+/-";
             this.buttonValue.UseVisualStyleBackColor = false;
-            this.buttonValue.Click += new System.EventHandler(this.SignBtnClicked);
+            this.buttonValue.Click += new System.EventHandler(this.SignButtonClicked);
             // 
             // button0
             // 
@@ -233,7 +234,7 @@
             this.addButton.TabIndex = 13;
             this.addButton.Text = "+";
             this.addButton.UseVisualStyleBackColor = false;
-            this.addButton.Click += new System.EventHandler(this.CalcBtnClicked);
+            this.addButton.Click += new System.EventHandler(this.CalcButtonClicked);
             // 
             // subtractButton
             // 
@@ -247,7 +248,7 @@
             this.subtractButton.TabIndex = 14;
             this.subtractButton.Text = "-";
             this.subtractButton.UseVisualStyleBackColor = false;
-            this.subtractButton.Click += new System.EventHandler(this.CalcBtnClicked);
+            this.subtractButton.Click += new System.EventHandler(this.CalcButtonClicked);
             // 
             // multiplyButton
             // 
@@ -261,7 +262,7 @@
             this.multiplyButton.TabIndex = 15;
             this.multiplyButton.Text = "x";
             this.multiplyButton.UseVisualStyleBackColor = false;
-            this.multiplyButton.Click += new System.EventHandler(this.CalcBtnClicked);
+            this.multiplyButton.Click += new System.EventHandler(this.CalcButtonClicked);
             // 
             // devideButton
             // 
@@ -275,7 +276,7 @@
             this.devideButton.TabIndex = 16;
             this.devideButton.Text = "/";
             this.devideButton.UseVisualStyleBackColor = false;
-            this.devideButton.Click += new System.EventHandler(this.CalcBtnClicked);
+            this.devideButton.Click += new System.EventHandler(this.CalcButtonClicked);
             // 
             // percentButton
             // 
@@ -287,7 +288,7 @@
             this.percentButton.TabIndex = 17;
             this.percentButton.Text = "%";
             this.percentButton.UseVisualStyleBackColor = false;
-            this.percentButton.Click += new System.EventHandler(this.PercentBtnClicked);
+            this.percentButton.Click += new System.EventHandler(this.PercentButtonClicked);
             // 
             // clearButton
             // 
@@ -299,7 +300,7 @@
             this.clearButton.TabIndex = 18;
             this.clearButton.Text = "C";
             this.clearButton.UseVisualStyleBackColor = false;
-            this.clearButton.Click += new System.EventHandler(this.ClearBtnClicked);
+            this.clearButton.Click += new System.EventHandler(this.ClearButtonClicked);
             // 
             // delButton
             // 
@@ -311,7 +312,7 @@
             this.delButton.TabIndex = 19;
             this.delButton.Text = "Del";
             this.delButton.UseVisualStyleBackColor = false;
-            this.delButton.Click += new System.EventHandler(this.DelBtnClicked);
+            this.delButton.Click += new System.EventHandler(this.DelButtonClicked);
             // 
             // equalButton
             // 
@@ -324,7 +325,7 @@
             this.equalButton.TabIndex = 20;
             this.equalButton.Text = "=";
             this.equalButton.UseVisualStyleBackColor = false;
-            this.equalButton.Click += new System.EventHandler(this.EqualBtnClicked);
+            this.equalButton.Click += new System.EventHandler(this.EqualButtonClicked);
             // 
             // Calculator
             // 
@@ -356,7 +357,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Calculator";
             this.Text = "Calculator";
-            this.Load += new System.EventHandler(this.Calculator_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

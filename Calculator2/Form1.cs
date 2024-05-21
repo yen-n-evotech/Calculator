@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace Calculator2
@@ -12,33 +10,25 @@ namespace Calculator2
         bool selectCheck = false;
         bool clearCheck = false;
         bool pointCheck = false;
+        bool equalPressedLastCheck = false;
 
         public Calculator()
         {
             InitializeComponent();
         }
 
-        private void Calculator_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void NumberButtonClicked(object sender, EventArgs e)
         {            
             Button number = (Button)sender;  // 押したボタンの値を初期化
-            if (displayText.Text == "0")
-            {
-                displayText.Clear();
-            } 
-            if (clearCheck == false)
-            {
-                displayText.Text += number.Text;
-            }
-            else
+            if (displayText.Text == "0" || clearCheck == true)
             {
                 displayText.Text = number.Text;
                 clearCheck = false;
                 pointCheck = false;
+            } 
+            else
+            {
+                displayText.Text += number.Text;
             }
             selectCheck = false;
         }
@@ -59,37 +49,6 @@ namespace Calculator2
             {
                 pointCheck = true;
             }
-        }
-        
-        private void CalcButtonClicked(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            if (displayText.Text != "")
-            {
-                if (selectCheck == false)
-                {
-                    PerformCalculation(calc);
-                    calc = btn.Text;
-                    selectCheck = true;
-                    clearCheck = true;
-                }  
-                else
-                {
-                    calc = btn.Text;
-                }
-            }        
-        }
-        
-        private void EqualButtonClicked(object sender, EventArgs e)
-        {
-            if (displayText.Text != "")
-            {
-                PerformCalculation(calc);
-                selectCheck = false;
-                clearCheck = true;
-                num2 = 0;
-                calc = "+";
-            }            
         }
 
         private void DelButtonClicked(object sender, EventArgs e)
@@ -130,26 +89,63 @@ namespace Calculator2
             clearCheck = false;
             pointCheck = false;
             calc = "+";
+            equalPressedLastCheck = false;
         }
 
-        private void PerformCalculation (string calc)
+        private void CalcButtonClicked(object sender, EventArgs e)
         {
-            num1 = Double.Parse(displayText.Text);
+            Button btn = (Button)sender;
+            if (displayText.Text != "")
+            {
+                if (selectCheck == false)
+                {
+                    PerformCalculation(calc);
+                    calc = btn.Text;
+                    selectCheck = true;
+                } 
+                else
+                {
+                    calc = btn.Text;
+                }
+            }        
+        }
+        
+        private void EqualButtonClicked(object sender, EventArgs e)
+        {
+            if (displayText.Text != "")
+            {
+                if (equalPressedLastCheck == false)
+                {
+                    num1 = double.Parse(displayText.Text);
+                    PerformCalculation(calc);
+                    num2 = num1;
+                    equalPressedLastCheck = true;
+                }
+                else
+                {
+                    PerformCalculation (calc, num1);
+                }
+            }            
+        }
+
+        private void PerformCalculation (string calc, double? repeatValue = null)
+        {
+            double inputValue = repeatValue ?? double.Parse(displayText.Text);
             switch (calc)
             {
                 case "+":
-                    num2 += num1;
+                    num2 += inputValue;
                     break;
                 case "-":
-                    num2 -= num1;
+                    num2 -= inputValue;
                     break;
                 case "x":
-                    num2 *= num1;
+                    num2 *= inputValue;
                     break;
                 case "/":
-                    if (num1 != 0)
+                    if (inputValue != 0)
                     {
-                        num2 /= num1;
+                        num2 /= inputValue;
                     }
                     else
                     {
@@ -158,9 +154,13 @@ namespace Calculator2
                     }
                     break;
                 default:
+                    num2 = inputValue;
                     break;
             }
             displayText.Text = Convert.ToString(num2);
+            num1 = inputValue;
+            clearCheck = true;
+            selectCheck = false;
         }            
     }
 }
