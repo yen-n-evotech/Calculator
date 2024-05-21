@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -28,7 +29,7 @@ namespace Calculator2
             if (displayText.Text == "0")
             {
                 displayText.Clear();
-            }
+            } 
             if (clearCheck == false)
             {
                 displayText.Text += number.Text;
@@ -42,14 +43,14 @@ namespace Calculator2
             selectCheck = false;
         }
 
-        private void SignBtnClicked(object sender, EventArgs e)
+        private void SignButtonClicked(object sender, EventArgs e)
         {
             double number;
             number = Double.Parse(displayText.Text) * (-1.0);
             displayText.Text = System.Convert.ToString(number);
         }
 
-        private void PercentBtnClicked(object sender, EventArgs e)
+        private void PercentButtonClicked(object sender, EventArgs e)
         {
             double number;
             number = Double.Parse(displayText.Text) / (100);
@@ -60,10 +61,10 @@ namespace Calculator2
             }
         }
         
-        private void CalcBtnClicked(object sender, EventArgs e)
+        private void CalcButtonClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            if (displayText.Text != "0")
+            if (displayText.Text != "")
             {
                 if (selectCheck == false)
                 {
@@ -79,9 +80,9 @@ namespace Calculator2
             }        
         }
         
-        private void EqualBtnClicked(object sender, EventArgs e)
+        private void EqualButtonClicked(object sender, EventArgs e)
         {
-            if (displayText.Text != "0")
+            if (displayText.Text != "")
             {
                 PerformCalculation(calc);
                 selectCheck = false;
@@ -91,15 +92,23 @@ namespace Calculator2
             }            
         }
 
-        private void DelBtnClicked(object sender, EventArgs e)
+        private void DelButtonClicked(object sender, EventArgs e)
         {
             if (displayText.Text.Length > 0)
             {
+                // 最終の文字を削除
                 displayText.Text = displayText.Text.Remove(displayText.TextLength - 1);
-            }
-            if (displayText.Text == "")
-            {
-                displayText.Text = "0";
+
+                // テキストが空の場合、またはマイナス記号のみが含まれる場合、「0」にリセット
+                if (displayText.Text == "" || displayText.Text.Contains("-"))
+                {
+                    displayText.Text = "0";
+                    pointCheck = false;
+                }
+                else if (!displayText.Text.Contains("."))
+                {
+                    pointCheck = false;
+                }
             }
         }
 
@@ -113,11 +122,14 @@ namespace Calculator2
             }
         }
 
-        private void ClearBtnClicked(object sender, EventArgs e)
+        private void ClearButtonClicked(object sender, EventArgs e)
         {
             displayText.Text = "0";
             num1 = 0;
             num2 = 0;
+            clearCheck = false;
+            pointCheck = false;
+            calc = "+";
         }
 
         private void PerformCalculation (string calc)
@@ -135,13 +147,20 @@ namespace Calculator2
                     num2 *= num1;
                     break;
                 case "/":
-                    num2 /= num1;
+                    if (num1 != 0)
+                    {
+                        num2 /= num1;
+                    }
+                    else
+                    {
+                        displayText.Text = "NaN";
+                        return;
+                    }
                     break;
                 default:
                     break;
             }
             displayText.Text = Convert.ToString(num2);
-
-        }
+        }            
     }
 }
