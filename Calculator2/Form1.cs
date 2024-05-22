@@ -6,7 +6,7 @@ namespace Calculator2
     public partial class Calculator : Form
     {
         double num1= 0, num2 = 0;
-        string calc = "+";
+        string calc = "";
         bool selectCheck = false;
         bool clearCheck = false;
         bool pointCheck = false;
@@ -20,7 +20,7 @@ namespace Calculator2
         private void NumberButtonClicked(object sender, EventArgs e)
         {            
             Button number = (Button)sender;  // 押したボタンの値を初期化
-            if (displayText.Text == "0" || clearCheck == true)
+            if (displayText.Text == "0" || clearCheck == true || displayText.Text == "NaN")
             {
                 displayText.Text = number.Text;
                 clearCheck = false;
@@ -88,14 +88,14 @@ namespace Calculator2
             num2 = 0;
             clearCheck = false;
             pointCheck = false;
-            calc = "+";
+            calc = "";
             equalPressedLastCheck = false;
         }
 
         private void CalcButtonClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            if (displayText.Text != "")
+            if (displayText.Text != "" || displayText.Text != "NaN")
             {
                 if (selectCheck == false)
                 {
@@ -112,7 +112,7 @@ namespace Calculator2
         
         private void EqualButtonClicked(object sender, EventArgs e)
         {
-            if (displayText.Text != "")
+            if (displayText.Text != "" || displayText.Text != "NaN")
             {
                 if (equalPressedLastCheck == false)
                 {
@@ -149,8 +149,7 @@ namespace Calculator2
                     }
                     else
                     {
-                        displayText.Text = "NaN";
-                        return;
+                        num2 = double.NaN;
                     }
                     break;
                 default:
