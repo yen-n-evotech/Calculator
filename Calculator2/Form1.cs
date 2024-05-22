@@ -118,7 +118,6 @@ namespace Calculator2
                 {
                     num1 = double.Parse(displayText.Text);
                     PerformCalculation(calc);
-                    num2 = num1;
                     equalPressedLastCheck = true;
                 }
                 else
