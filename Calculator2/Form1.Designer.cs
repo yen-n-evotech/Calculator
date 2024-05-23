@@ -56,12 +56,13 @@
             // 
             this.displayText.BackColor = System.Drawing.SystemColors.ControlText;
             this.displayText.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.displayText.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.displayText.Font = new System.Drawing.Font("MS UI Gothic", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.displayText.ForeColor = System.Drawing.SystemColors.Window;
             this.displayText.Location = new System.Drawing.Point(12, 27);
             this.displayText.Name = "displayText";
             this.displayText.ReadOnly = true;
-            this.displayText.Size = new System.Drawing.Size(338, 33);
+            this.displayText.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.displayText.Size = new System.Drawing.Size(338, 43);
             this.displayText.TabIndex = 1;
             this.displayText.Text = "0";
             this.displayText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;

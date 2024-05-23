@@ -5,7 +5,8 @@ namespace Calculator2
 {
     public partial class Calculator : Form
     {
-        double num1= 0, num2 = 0;
+        double num1 = 0;
+        double num2 = 0;
         string calc = "";
         bool selectCheck = false;
         bool clearCheck = false;
@@ -15,6 +16,7 @@ namespace Calculator2
         public Calculator()
         {
             InitializeComponent();
+            this.AutoSize = true;
         }
 
         private void NumberButtonClicked(object sender, EventArgs e)
@@ -43,8 +45,10 @@ namespace Calculator2
         private void PercentButtonClicked(object sender, EventArgs e)
         {
             double number;
-            number = Double.Parse(displayText.Text) / (100);
-            displayText.Text = System.Convert.ToString(number);
+            number = Double.Parse(displayText.Text) / 100.0;
+
+            displayText.Text = number.ToString();
+
             if (number != 0)
             {
                 pointCheck = true;
@@ -85,23 +89,24 @@ namespace Calculator2
         {
             displayText.Text = "0";
             num1 = 0;
-            num2 = 0;
-            clearCheck = false;
+            num2 = 0;                
             pointCheck = false;
             calc = "";
             equalPressedLastCheck = false;
+            clearCheck = false;
         }
 
         private void CalcButtonClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            if (displayText.Text != "" || displayText.Text != "NaN")
+            if (displayText.Text != "" && displayText.Text != "NaN")
             {
                 if (selectCheck == false)
-                {
+                {                      
                     PerformCalculation(calc);
                     calc = btn.Text;
                     selectCheck = true;
+                    clearCheck = true;                
                 } 
                 else
                 {
@@ -112,39 +117,35 @@ namespace Calculator2
         
         private void EqualButtonClicked(object sender, EventArgs e)
         {
-            if (displayText.Text != "" || displayText.Text != "NaN")
+            num1 = double.Parse(displayText.Text);
+            if (displayText.Text != "" && displayText.Text != "NaN")
             {
-                if (equalPressedLastCheck == false)
-                {
-                    num1 = double.Parse(displayText.Text);
-                    PerformCalculation(calc);
-                    equalPressedLastCheck = true;
-                }
-                else
-                {
-                    PerformCalculation (calc, num1);
-                }
+                PerformCalculation(calc);
+                selectCheck = false;
+                clearCheck = true;
+                num2 = 0;
+                calc = "+";
             }            
         }
 
-        private void PerformCalculation (string calc, double? repeatValue = null)
+        private void PerformCalculation (string calc)
         {
-            double inputValue = repeatValue ?? double.Parse(displayText.Text);
+            num1 = double.Parse(displayText.Text);
             switch (calc)
             {
                 case "+":
-                    num2 += inputValue;
+                    num2 += num1;
                     break;
                 case "-":
-                    num2 -= inputValue;
+                    num2 -= num1;
                     break;
                 case "x":
-                    num2 *= inputValue;
+                    num2 *= num1;
                     break;
                 case "/":
-                    if (inputValue != 0)
+                    if (num1 != 0)
                     {
-                        num2 /= inputValue;
+                        num2 /= num1;
                     }
                     else
                     {
@@ -152,13 +153,10 @@ namespace Calculator2
                     }
                     break;
                 default:
-                    num2 = inputValue;
+                    num2 = num1;
                     break;
             }
             displayText.Text = Convert.ToString(num2);
-            num1 = inputValue;
-            clearCheck = true;
-            selectCheck = false;
         }            
     }
 }
