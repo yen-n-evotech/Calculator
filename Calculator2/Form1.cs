@@ -68,7 +68,7 @@ namespace Calculator2
         }
 
         /// <summary>
-        /// + / - 数字記号を決めるエベント
+        /// 「+/-」という数字記号を決めるエベント
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -76,7 +76,21 @@ namespace Calculator2
         {
             double number;
             number = Double.Parse(displayText.Text) * (-1.0);
-            displayText.Text = System.Convert.ToString(number);
+
+            // 記号ボタンを押すと、displayTextが「0.」の場合、「-0.」になり、最後記号が「．」の場合、「．」という符号は削除されません。その以外、数字は普通に符号を変えります。
+            if (displayText.Text == "0.")
+            {
+                displayText.Text = "-0.";
+                pointCheck = true;
+            }
+            else if (displayText.Text.EndsWith("."))
+            {                
+                displayText.Text = System.Convert.ToString(number) + ".";
+            }
+            else
+            {
+                displayText.Text = System.Convert.ToString(number);
+            }
         }
 
         /// <summary>
@@ -89,23 +103,18 @@ namespace Calculator2
             double number;
             number = (Double.Parse(displayText.Text) / 100.0);
 
-            // カンマ以降の桁数を確認
-            int decimalPlaces = BitConverter.GetBytes(decimal.GetBits((decimal)number)[3])[2];
-
             // 小数点以下の桁数に基づいて 10 進数をフォーマット
-            if (decimalPlaces < 10)
+            if (Math.Abs(number) < 1E-10)
+            {
+                displayText.Text = number.ToString("G");              
+            }
+            else 
             {
                 displayText.Text = number.ToString("F10").TrimEnd('0');
-
-            }
-            else if (decimalPlaces >= 10 && decimalPlaces < 28)
-            {
-                displayText.Text = number.ToString("G");
-            }
-            else
-            {
-                displayText.Text = "NaN";
-                DiableButtons();
+                if (displayText.Text.EndsWith("."))
+                {
+                    displayText.Text = displayText.Text.TrimEnd('.');
+                }
             }
 
             // 結果は0と違ったら、小数です。その場合、もう一度点符号を追加できません。
