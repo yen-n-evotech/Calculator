@@ -276,10 +276,11 @@
             // 
             // percentButton
             // 
-            this.percentButton.BackColor = System.Drawing.SystemColors.Info;
+            this.percentButton.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.percentButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.percentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.percentButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.percentButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.percentButton.Location = new System.Drawing.Point(3, 3);
             this.percentButton.Name = "percentButton";
             this.percentButton.Size = new System.Drawing.Size(170, 109);
@@ -290,9 +291,10 @@
             // 
             // clearButton
             // 
-            this.clearButton.BackColor = System.Drawing.SystemColors.Info;
+            this.clearButton.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.clearButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clearButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.clearButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.clearButton.Location = new System.Drawing.Point(179, 3);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(170, 109);
@@ -303,9 +305,10 @@
             // 
             // delButton
             // 
-            this.delButton.BackColor = System.Drawing.SystemColors.Info;
+            this.delButton.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.delButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.delButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.delButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.delButton.Location = new System.Drawing.Point(355, 3);
             this.delButton.Name = "delButton";
             this.delButton.Size = new System.Drawing.Size(170, 109);

@@ -106,15 +106,11 @@ namespace Calculator2
             // 小数点以下の桁数に基づいて 10 進数をフォーマット
             if (Math.Abs(number) < 1E-10)
             {
-                displayText.Text = number.ToString("G");              
+                displayText.Text = number.ToString("G10");              
             }
             else 
             {
-                displayText.Text = number.ToString("F10").TrimEnd('0');
-                if (displayText.Text.EndsWith("."))
-                {
-                    displayText.Text = displayText.Text.TrimEnd('.');
-                }
+                displayText.Text = number.ToString("F20").TrimEnd('0').TrimEnd('.');
             }
 
             // 結果は0と違ったら、小数です。その場合、もう一度点符号を追加できません。
