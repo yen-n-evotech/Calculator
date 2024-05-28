@@ -41,6 +41,7 @@ namespace Calculator2
         public Calculator()
         {
             InitializeComponent();
+            displayText.MaxLength = 15;
         }
 
         /// <summary>
@@ -187,7 +188,7 @@ namespace Calculator2
             num2 = 0;                
             pointCheck = false;
             calc = "";
-            clearCheck = false;
+            clearCheck = true;
         }
 
         /// <summary>
@@ -202,7 +203,9 @@ namespace Calculator2
             // displayTextはエラーない場合、空ない場合、計算できます。
             if (displayText.Text != "" && displayText.Text != "NaN")
             {
-                // 連続で計算できます。
+                // 計算が選択されているかどうかを確認。
+                // selectCheck が false の場合、計算が選択されていないことを意味するため、計算ボタンが押されると、現在の結果 (存在する場合) と新しい演算子を使用して計算が実行されます。
+                // selectCheck が true の場合、選択された計算がすでに存在することを意味するため、新しい計算ボタンを押すと、古い演算子が新しい演算子で上書きされます。
                 if (selectCheck == false)
                 {
                     PerformCalculation(calc);
@@ -239,6 +242,11 @@ namespace Calculator2
                     selectCheck = false;
                     clearCheck = true;
                     calc = "";
+                }
+                else
+                {
+                    displayText.Text = num1.ToString();
+                    clearCheck = true;
                 }
             }             
         }
@@ -284,6 +292,20 @@ namespace Calculator2
                         break;
                 }
                 displayText.Text = Convert.ToString(num2);
+            }
+        }
+
+        /// <summary>
+        /// displayTextが15文字いじょy場合、文字列を切り詰めます
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DisplayTextChanged(object sender, EventArgs e)
+        {
+            if (displayText.Text.Length > 15)
+            {
+                // 文字列を切り詰めます
+                displayText.Text = displayText.Text.Substring(0, 15);
             }
         }
 

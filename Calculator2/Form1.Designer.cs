@@ -71,6 +71,7 @@
             this.displayText.TabIndex = 1;
             this.displayText.Text = "0";
             this.displayText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.displayText.TextChanged += new System.EventHandler(this.DisplayTextChanged);
             // 
             // button7
             // 
