@@ -40,8 +40,7 @@ namespace Calculator2
         /// </summary>
         public Calculator()
         {
-            InitializeComponent();
-            displayText.MaxLength = 15;
+            InitializeComponent();          
         }
 
         /// <summary>
@@ -296,19 +295,31 @@ namespace Calculator2
         }
 
         /// <summary>
-        /// displayTextが15文字いじょy場合、文字列を切り詰めます
+        /// displayTextが16文字以上場合、文字列を切り詰めます。
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void DisplayTextChanged(object sender, EventArgs e)
-        {
-            if (displayText.Text.Length > 15)
+        {      
+            const int maxLength = 15;
+            string text = displayText.Text;
+
+            // displayTextの最長は15文字だので、16文字以上場合、文字列を切り詰めます。
+            if (text.Length > maxLength)
             {
-                // 文字列を切り詰めます
-                displayText.Text = displayText.Text.Substring(0, 15);
+                if (text.StartsWith("-"))
+                {
+                    displayText.Text = "-" + text.Substring(1, maxLength);
+                }
+                else
+                {
+                    displayText.Text = text.Substring(0, maxLength);
+                }
+
+                displayText.SelectionStart = displayText.Text.Length;
             }
         }
-
+        
         /// <summary>
         /// エラーが発生された場合、いつかボタンは無効化にするメソッド
         /// </summary>
