@@ -247,17 +247,17 @@ namespace Calculator2
             }
             else
             {
-                num1 = double.Parse(displayText.Text);
+                num2 = double.Parse(displayText.Text);
                 if (calc != "")
                 {
-                    PerformCalculation(calc);
+                    PerformCalculation(calc);       
                     selectCheck = false;
                     clearCheck = true;
                     calc = "";
                 }
                 else
                 {
-                    displayText.Text = num1.ToString();
+                    displayText.Text = num2.ToString();
                     clearCheck = true;
                 }
             }             
@@ -272,38 +272,38 @@ namespace Calculator2
             // エラーがない場合、計算します。
             if (displayText.Text != "NaN")
             {
-                num1 = double.Parse(displayText.Text);
+                num2 = double.Parse(displayText.Text);
                 switch (calc)
                 {
                     case "+":
-                        num2 += num1;
+                        num1 += num2;
                         break;
                     case "-":
-                        num2 -= num1;
+                        num1 -= num2;
                         break;
                     case "x":
-                        num2 *= num1;
+                        num1 *= num2;
                         break;
                     case "/":
-                        if (num1 != 0)
+                        if (num2 != 0)
                         {
-                            num2 /= num1;
+                            num1 /= num2;
                         }
 
                         // num 1 = 0 の場合、エラーが発生
                         else
                         {
-                            num2 = double.NaN;
                             num1 = double.NaN;
+                            num2 = double.NaN;
                             displayText.Text = "NaN";
                             DiableButtons();
                         }
                         break;
                     default:
-                        num2 = num1;
+                        num1 = num2;
                         break;
                 }
-                displayText.Text = Convert.ToString(num2);
+                displayText.Text = Convert.ToString(num1);
             }
         }
 
