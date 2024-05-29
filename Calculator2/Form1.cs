@@ -53,10 +53,19 @@ namespace Calculator2
             EnableButtons();
             Button number = (Button)sender;  // 押したボタンの値を初期化
 
-            // デフォルトの場合、リセットの場合、エラーの場合、クリックした数値だけを表示。その以外、2番目の数値以上をクリックして、displayTextに追加される
+            // デフォルトの場合、リセットの場合、エラーの場合、クリックした数値だけを表示。リセットして、displayTextが「0.」または「-0.」の場合、displaytextに追加
+            // その以外、2番目の数値以上をクリックして、displayTextに追加される
             if (displayText.Text == "0" || clearCheck == true || displayText.Text == "NaN")
             {
-                displayText.Text = number.Text;
+                if (clearCheck == true && (displayText.Text == "0." || displayText.Text == "-0."))
+                {
+                    displayText.Text += number.Text;
+                    pointCheck = true;
+                }
+                else
+                {
+                    displayText.Text = number.Text;
+                }
                 clearCheck = false;
                 pointCheck = false;
             }
@@ -170,6 +179,10 @@ namespace Calculator2
             if (!displayText.Text.Contains("."))
             {
                 displayText.Text += pointBtn.Text;
+                pointCheck = true;
+            }
+            else
+            {
                 pointCheck = true;
             }
         }
