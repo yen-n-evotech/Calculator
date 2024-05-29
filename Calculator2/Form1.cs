@@ -37,7 +37,16 @@ namespace Calculator2
         /// </summary>
         bool pointCheck = false;
 
+        /// <summary>
+        /// 「=」という符号をクリックするか確認
+        /// </summary>
         bool pressedEqual = false;
+
+        /// <summary>
+        /// 連続計算で「＝」の後NumberButtonをクリックするか確認
+        /// </summary>
+        bool pressNumberAfterEqual = false;
+
         /// <summary>
         /// 電卓クラスを初期化
         /// </summary>
@@ -77,6 +86,15 @@ namespace Calculator2
                 displayText.Text += number.Text;
             }
             selectCheck = false;
+            if (pressedEqual == true)
+            {
+                pressNumberAfterEqual = true;
+            }
+            else
+            {
+                pressedEqual = false;
+            }
+
         }
 
         /// <summary>
@@ -244,6 +262,7 @@ namespace Calculator2
         /// <param name="e"></param>
         private void EqualButtonClicked(object sender, EventArgs e)
         {
+            Button equalBtn = (Button)sender;
             // エラー場合、= を押すと、リセットになります。その以外、計算します。
             if (displayText.Text == "NaN")
             {
@@ -273,8 +292,18 @@ namespace Calculator2
                     }
                 }
                 else
-                {
-                    PerformEqualCalculation(nextcalc, num2); 
+                {     
+                    if (pressNumberAfterEqual == false)
+                    {
+                        PerformEqualCalculation(nextcalc, num2);
+                        pressedEqual = true;
+                    }
+                    else
+                    {
+                        num1 = double.Parse(displayText.Text);
+                        PerformEqualCalculation(nextcalc, num2);
+                        pressedEqual = true;
+                    }
                 }                
             }             
         }
@@ -312,7 +341,7 @@ namespace Calculator2
                             num1 = double.NaN;
                             num2 = double.NaN;
                             displayText.Text = "NaN";
-                            DiableButtons();
+                            DisableButtons();
                         }
                         break;
                     default:
@@ -353,7 +382,7 @@ namespace Calculator2
                             num1 = double.NaN;
                             num2 = double.NaN;
                             displayText.Text = "NaN";
-                            DiableButtons();
+                            DisableButtons();
                         }
                         break;
                     default:
@@ -395,7 +424,7 @@ namespace Calculator2
         /// <summary>
         /// エラーが発生された場合、いつかボタンは無効化にするメソッド
         /// </summary>
-        private void DiableButtons()
+        private void DisableButtons()
         {
             percentButton.Enabled = false;
             pointButton.Enabled = false;
