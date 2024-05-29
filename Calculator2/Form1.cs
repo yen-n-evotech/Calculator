@@ -20,6 +20,8 @@ namespace Calculator2
         /// </summary>
         string calc = "";
 
+        string nextcalc = "";
+
         /// <summary>
         /// 計算符号を選択するか確認
         /// </summary>
@@ -35,6 +37,7 @@ namespace Calculator2
         /// </summary>
         bool pointCheck = false;
 
+        bool pressedEqual = false;
         /// <summary>
         /// 電卓クラスを初期化
         /// </summary>
@@ -201,6 +204,7 @@ namespace Calculator2
             pointCheck = false;
             calc = "";
             clearCheck = true;
+            pressedEqual = false;
         }
 
         /// <summary>
@@ -223,12 +227,13 @@ namespace Calculator2
                     PerformCalculation(calc);
                     calc = btn.Text;
                     selectCheck = true;
-                    clearCheck = true;
+                    //clearCheck = true;
                 }
                 else
                 {
                     calc = btn.Text;
                 }
+                pressedEqual = false;
             }
         }
         
@@ -246,20 +251,31 @@ namespace Calculator2
                 EnableButtons();
             }
             else
-            {
-                num2 = double.Parse(displayText.Text);
-                if (calc != "")
+            {                
+                if (pressedEqual == false)
                 {
-                    PerformCalculation(calc);       
-                    selectCheck = false;
-                    clearCheck = true;
-                    calc = "";
+                    //num2 = double.Parse(displayText.Text);
+                    if (calc == "+" || calc == "-" || calc == "x" || calc == "/")
+                    {
+                        PerformCalculation(calc);
+                        selectCheck = false;
+                        clearCheck = true;
+                        nextcalc = calc;
+                        calc = "";
+                        pressedEqual = true;
+                    }
+                    else
+                    {
+                        num1 = double.Parse(displayText.Text);
+                        displayText.Text = num1.ToString();
+                        clearCheck = true;
+                        pressedEqual = false;
+                    }
                 }
                 else
                 {
-                    displayText.Text = num2.ToString();
-                    clearCheck = true;
-                }
+                    PerformEqualCalculation(nextcalc, num2); 
+                }                
             }             
         }
 
@@ -304,6 +320,49 @@ namespace Calculator2
                         break;
                 }
                 displayText.Text = Convert.ToString(num1);
+                clearCheck = true;
+                selectCheck = false;
+            }
+        }
+
+        private void PerformEqualCalculation(string nextcalc, double? repeatValue = null)
+        {
+            // エラーがない場合、計算します。
+            if (displayText.Text != "NaN")
+            {
+                switch (nextcalc)
+                {
+                    case "+":
+                        num1 += num2;
+                        break;
+                    case "-":
+                        num1 -= num2;
+                        break;
+                    case "x":
+                        num1 *= num2;
+                        break;
+                    case "/":
+                        if (num2 != 0)
+                        {
+                            num1 /= num2;
+                        }
+
+                        // num 1 = 0 の場合、エラーが発生
+                        else
+                        {
+                            num1 = double.NaN;
+                            num2 = double.NaN;
+                            displayText.Text = "NaN";
+                            DiableButtons();
+                        }
+                        break;
+                    default:
+                        num1 = num2;
+                        break;
+                }
+                displayText.Text = Convert.ToString(num1);
+                clearCheck = true;
+                selectCheck = false;
             }
         }
 
