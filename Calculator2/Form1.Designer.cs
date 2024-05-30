@@ -75,7 +75,7 @@
             // 
             // button7
             // 
-            this.button7.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.button7.BackColor = System.Drawing.Color.Gray;
             this.button7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -90,7 +90,7 @@
             // button8
             // 
             this.button8.AutoSize = true;
-            this.button8.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.button8.BackColor = System.Drawing.Color.Gray;
             this.button8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -104,7 +104,7 @@
             // 
             // button9
             // 
-            this.button9.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.button9.BackColor = System.Drawing.Color.Gray;
             this.button9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button9.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -118,7 +118,7 @@
             // 
             // button4
             // 
-            this.button4.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.button4.BackColor = System.Drawing.Color.Gray;
             this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -132,7 +132,7 @@
             // 
             // button5
             // 
-            this.button5.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.button5.BackColor = System.Drawing.Color.Gray;
             this.button5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -146,7 +146,7 @@
             // 
             // button6
             // 
-            this.button6.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.button6.BackColor = System.Drawing.Color.Gray;
             this.button6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -160,7 +160,7 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.button1.BackColor = System.Drawing.Color.Gray;
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -174,7 +174,7 @@
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.button2.BackColor = System.Drawing.Color.Gray;
             this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -188,7 +188,7 @@
             // 
             // button3
             // 
-            this.button3.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.button3.BackColor = System.Drawing.Color.Gray;
             this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -202,7 +202,7 @@
             // 
             // pointButton
             // 
-            this.pointButton.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.pointButton.BackColor = System.Drawing.Color.Gray;
             this.pointButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pointButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.pointButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -216,7 +216,7 @@
             // 
             // addButton
             // 
-            this.addButton.AccessibleName = "calcBtns";
+            this.addButton.AccessibleName = "CalcBtns";
             this.addButton.BackColor = System.Drawing.Color.DarkOrange;
             this.addButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -231,7 +231,7 @@
             // 
             // subtractButton
             // 
-            this.subtractButton.AccessibleName = "calcBtns";
+            this.subtractButton.AccessibleName = "CalcBtns";
             this.subtractButton.BackColor = System.Drawing.Color.DarkOrange;
             this.subtractButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.subtractButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -247,7 +247,7 @@
             // 
             // multiplyButton
             // 
-            this.multiplyButton.AccessibleName = "calcBtns";
+            this.multiplyButton.AccessibleName = "CalcBtns";
             this.multiplyButton.BackColor = System.Drawing.Color.DarkOrange;
             this.multiplyButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.multiplyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -262,7 +262,7 @@
             // 
             // devideButton
             // 
-            this.devideButton.AccessibleName = "calcBtns";
+            this.devideButton.AccessibleName = "CalcBtns";
             this.devideButton.BackColor = System.Drawing.Color.DarkOrange;
             this.devideButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.devideButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -277,11 +277,11 @@
             // 
             // percentButton
             // 
-            this.percentButton.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.percentButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.percentButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.percentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.percentButton.Font = new System.Drawing.Font("Franklin Gothic Medium", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.percentButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.percentButton.ForeColor = System.Drawing.SystemColors.Control;
             this.percentButton.Location = new System.Drawing.Point(3, 3);
             this.percentButton.Name = "percentButton";
             this.percentButton.Size = new System.Drawing.Size(170, 109);
@@ -292,10 +292,10 @@
             // 
             // clearButton
             // 
-            this.clearButton.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.clearButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.clearButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clearButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.clearButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.clearButton.ForeColor = System.Drawing.SystemColors.Control;
             this.clearButton.Location = new System.Drawing.Point(179, 3);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(170, 109);
@@ -306,10 +306,10 @@
             // 
             // delButton
             // 
-            this.delButton.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.delButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.delButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.delButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.delButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.delButton.ForeColor = System.Drawing.SystemColors.Control;
             this.delButton.Location = new System.Drawing.Point(355, 3);
             this.delButton.Name = "delButton";
             this.delButton.Size = new System.Drawing.Size(170, 109);
@@ -352,6 +352,7 @@
             // 
             // tableLayoutPanel2
             // 
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.Gray;
             this.tableLayoutPanel2.ColumnCount = 4;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -392,7 +393,7 @@
             // 
             // signButton
             // 
-            this.signButton.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.signButton.BackColor = System.Drawing.Color.Gray;
             this.signButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.signButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.signButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -407,7 +408,7 @@
             // button0
             // 
             this.button0.AutoSize = true;
-            this.button0.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.button0.BackColor = System.Drawing.Color.Gray;
             this.button0.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button0.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button0.ForeColor = System.Drawing.SystemColors.ControlLightLight;
