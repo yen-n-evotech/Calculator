@@ -94,7 +94,6 @@ namespace Calculator2
             {
                 pressedEqual = false;
             }
-
         }
 
         /// <summary>
@@ -161,30 +160,34 @@ namespace Calculator2
         /// <param name="e"></param>
         private void DelButtonClicked(object sender, EventArgs e)
         {
-            // エラーの場合、Delボタンを押すと、リセットになります。他の場合、最初の文字を削除します。
-            if (displayText.Text == "NaN")
+            if (pressedEqual == false && !displayText.Text.Contains("E"))
             {
-                displayText.Text = "0";
-                EnableButtons();
-            }
-            else if (displayText.Text != "")
-            {
-                // 最終の文字を削除
-                displayText.Text = displayText.Text.Remove(displayText.TextLength - 1);
-
-                // テキストが空の場合、またはマイナス記号のみが含まれる場合、「0」にリセット
-                if (displayText.Text == "" || (displayText.Text.Contains("-") && displayText.Text.Length < 2))
+                // エラーの場合、Delボタンを押すと、リセットになります。他の場合、最初の文字を削除します。
+                if (displayText.Text == "NaN")
                 {
                     displayText.Text = "0";
-                    pointCheck = false;
+                    EnableButtons();
                 }
-
-                // 削除したら、結果は点がない場合、もう一度点を追加できます。
-                else if (!displayText.Text.Contains("."))
+                else if (displayText.Text != "")
                 {
-                    pointCheck = false;
+                    // 最終の文字を削除
+                    displayText.Text = displayText.Text.Remove(displayText.TextLength - 1);
+
+                    // テキストが空の場合、またはマイナス記号のみが含まれる場合、「0」にリセット
+                    if (displayText.Text == "" || (displayText.Text.Contains("-") && displayText.Text.Length < 2))
+                    {
+                        displayText.Text = "0";
+                        pointCheck = false;
+                    }
+
+                    // 削除したら、結果は点がない場合、もう一度点を追加できます。
+                    else if (!displayText.Text.Contains("."))
+                    {
+                        pointCheck = false;
+                    }
                 }
             }
+            
         }
 
         /// <summary>
@@ -406,19 +409,22 @@ namespace Calculator2
             string text = displayText.Text;
 
             // displayTextの最長は15文字だので、16文字以上場合、文字列を切り詰めます。
-            if (text.Length > maxLength)
+            if (!displayText.Text.Contains("E"))
             {
-                if (text.StartsWith("-"))
+                if (text.Length > maxLength)
                 {
-                    displayText.Text = "-" + text.Substring(1, maxLength);
-                }
-                else
-                {
-                    displayText.Text = text.Substring(0, maxLength);
-                }
+                    if (text.StartsWith("-"))
+                    {
+                        displayText.Text = "-" + text.Substring(1, maxLength);
+                    }
+                    else
+                    {
+                        displayText.Text = text.Substring(0, maxLength);
+                    }
 
-                displayText.SelectionStart = displayText.Text.Length;
-            }
+                    displayText.SelectionStart = displayText.Text.Length;
+                }
+            }            
         }
         
         /// <summary>
