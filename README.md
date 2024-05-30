@@ -1,0 +1,19 @@
+
+# Iphone Calculator
+
+電卓を開発する基礎プログラミング入門者の卒業試験です。
+
+## 要求仕様
+
+- 簡単に計算できます。
+- 「＝」を複数回押すと、連続計算できます。
+- 「＝」を複数回押すと、数ボタンを押して結果と計算しないで、入力した二つの数と計算します。仕組みはIphoneの電卓アプリが近いです。
+
+## Screenshots
+
+![App Screenshot](https://private-user-images.githubusercontent.com/168711225/335078558-952ac554-5ba6-4734-b6d0-dc37bcc1a19f.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTcwNTM2NzIsIm5iZiI6MTcxNzA1MzM3MiwicGF0aCI6Ii8xNjg3MTEyMjUvMzM1MDc4NTU4LTk1MmFjNTU0LTViYTYtNDczNC1iNmQwLWRjMzdiY2MxYTE5Zi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNTMwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDUzMFQwNzE2MTJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lMTM5OTJjODljZjgyZjA3ODA4ODJhYmJmNDhjNWQ3Y2RiZWI1YTA1NGZlZDUyMWViNTM0OGY4ZWQ5YzljN2I5JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.aXVkNUNByz_4MnD2cdTazTgH7joGn470i4AmB9lyRJ8)
+
+
+## Logo
+![Logo](https://eliteai.tools/public/images/home/6.svg)
+
