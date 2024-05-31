@@ -180,21 +180,23 @@ namespace Calculator2
                 }
                 else if (displayText.Text != "")
                 {
-                    // 最終の文字を削除
-                    displayText.Text = displayText.Text.Remove(displayText.TextLength - 1);
-
-                    // テキストが空の場合、またはマイナス記号のみが含まれる場合、「0」にリセット
-                    if (displayText.Text == "" || (displayText.Text.Contains("-") && displayText.Text.Length < 2))
+                    // 一文字だけがある場合、マイナス符号と一文字だけがある場合、「0」にリセット
+                    if (displayText.Text.Length == 1 || ((displayText.Text.Contains("-") && displayText.Text.Length == 2)))
                     {
                         displayText.Text = "0";
                         PointCheck = false;
                     }
-
-                    // 削除したら、結果は点がない場合、もう一度点を追加できます。
-                    else if (!displayText.Text.Contains("."))
+                    else
                     {
-                        PointCheck = false;
-                    }
+                        // 最終の文字を削除
+                        displayText.Text = displayText.Text.Remove(displayText.TextLength - 1);
+
+                        // 削除したら、結果は点がない場合、もう一度点を追加できます。
+                        if (!displayText.Text.Contains("."))
+                        {
+                            PointCheck = false;
+                        }
+                    }                    
                 }
             }            
         }
@@ -430,24 +432,38 @@ namespace Calculator2
         {      
             const int maxLength = 15;
             string text = displayText.Text;
+            double result = double.Parse(displayText.Text);
 
-            // displayTextの最長は15文字だので、16文字以上場合、文字列を切り詰めます。「E」がある場合、そのまま計算します。
-            if (!displayText.Text.Contains("E"))
+            // 最小値と最大値を設定
+            if (result >= double.MinValue && result <= double.MaxValue)
             {
-                if (text.Length > maxLength)
+                // displayTextの最長は15文字だので、16文字以上場合、文字列を切り詰めます。「E」がある場合、そのまま計算します。
+                if (!displayText.Text.Contains("E"))
                 {
-                    // 15文字のdisplayTextに「-」があっても最後の文字は変わりません。
-                    if (text.StartsWith("-"))
+                    if (text.Length > maxLength)
                     {
-                        displayText.Text = "-" + text.Substring(1, maxLength);
+                        // 15文字のdisplayTextに「-」があっても最後の文字は変わりません。
+                        if (text.StartsWith("-"))
+                        {
+                            displayText.Text = "-" + text.Substring(1, maxLength);
+                        }
+                        else if (text.EndsWith("."))
+                        {
+                            displayText.Text = text.Substring(0, maxLength - 1);
+                        }
+                        else
+                        {
+                            displayText.Text = text.Substring(0, maxLength);
+                        }
+                        displayText.SelectionStart = displayText.Text.Length;
                     }
-                    else
-                    {
-                        displayText.Text = text.Substring(0, maxLength);
-                    }
-                    displayText.SelectionStart = displayText.Text.Length;
                 }
-            }            
+            }
+            else
+            {
+                displayText.Text = "NaN";
+                DisableButtons() ;
+            }                   
         }
         
         /// <summary>
