@@ -60,7 +60,7 @@
             // 
             this.displayText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.displayText.BackColor = System.Drawing.SystemColors.ControlText;
+            this.displayText.BackColor = System.Drawing.Color.Black;
             this.displayText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.displayText.Font = new System.Drawing.Font("Franklin Gothic Medium", 28.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.displayText.ForeColor = System.Drawing.SystemColors.Window;
@@ -73,6 +73,7 @@
             this.displayText.Text = "0";
             this.displayText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.displayText.TextChanged += new System.EventHandler(this.DisplayTextChanged);
+            this.displayText.Enter += new System.EventHandler(this.DisplayTextEnter);
             // 
             // button7
             // 

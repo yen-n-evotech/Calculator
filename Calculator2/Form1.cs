@@ -114,21 +114,21 @@ namespace Calculator2
         private void SignButtonClicked(object sender, EventArgs e)
         {
             double number;
-            number = Double.Parse(displayText.Text) * (-1.0);
+            number = Double.Parse(displayText.Text) ;
 
-            // 記号ボタンを押すと、displayTextが「0.」の場合、「-0.」になり、最後記号が「．」の場合、「．」という符号は削除されません。その以外、数字は普通に符号を変えります。
-            if (displayText.Text == "0.")
+            // 記号ボタンを押すと、数字は普通に符号を変えります。
+            if (PointCheck == false)
             {
-                displayText.Text = "-0.";
-                PointCheck = true;
+                number *= (-1);
+                displayText.Text = number.ToString();
             }
-            else if (displayText.Text.EndsWith("."))
-            {                
-                displayText.Text = System.Convert.ToString(number) + ".";
-            }
-            else
+            else if (displayText.Text.Contains(".") && displayText.Text.Contains("-"))
             {
-                displayText.Text = System.Convert.ToString(number);
+                displayText.Text = displayText.Text.Substring(1);
+            }
+            else if (displayText.Text.Contains(".") && !displayText.Text.Contains("-"))
+            {
+                displayText.Text = "-" + displayText.Text;
             }
         }
 
@@ -210,15 +210,19 @@ namespace Calculator2
         {
             Button pointBtn = (Button)sender;
             
-            // displayTextは点がまだない場合、点を追加できます。
-            if (!displayText.Text.Contains("."))
+            // displayTextで「E」がある場合、結果が表示される場合、PointButtonは無効
+            if (!displayText.Text.Contains("E") && PressedEqualCheck == false)
             {
-                displayText.Text += pointBtn.Text;
-                PointCheck = true;
-            }
-            else
-            {
-                PointCheck = true;
+                // displayTextは点がまだない場合、点を追加できます。
+                if (!displayText.Text.Contains("."))
+                {
+                    displayText.Text += pointBtn.Text;
+                    PointCheck = true;
+                }
+                else
+                {
+                    PointCheck = true;
+                }
             }
         }
 
@@ -463,7 +467,7 @@ namespace Calculator2
             {
                 displayText.Text = "NaN";
                 DisableButtons() ;
-            }                   
+            }
         }
         
         /// <summary>
@@ -502,6 +506,16 @@ namespace Calculator2
             subtractButton.Enabled = true;
             multiplyButton.Enabled = true;
             devideButton.Enabled = true;
+        }
+
+        /// <summary>
+        /// キャレットなし表示
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DisplayTextEnter(object sender, EventArgs e)
+        {
+            ActiveControl = null;
         }
     }
 }
