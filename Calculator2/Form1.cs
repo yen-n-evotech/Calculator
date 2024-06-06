@@ -69,33 +69,51 @@ namespace Calculator2
             EnableButtons();
 
             // 押したボタンの値を初期化
-            Button number = (Button)sender;  
+            Button number = (Button)sender;
 
+            // displayTextに数値を追加して変更
+            UpdateDisplayText(number.Text);
+
+            // 計算符号を押せるために、SelectCheckのfalseをセット
+            SelectCheck = false;
+
+            // 「＝」を押して後、数を押すと、後の計算のためその数値を取ります。
+            CheckNumberAfterEqual();
+        }
+
+        /// <summary>
+        /// displayTextに数値を追加して変更
+        /// </summary>
+        /// <param name="numberText">数値</param>
+        private void UpdateDisplayText(string numberText)
+        {
             // デフォルトの場合、リセットの場合、エラーの場合、クリックした数値だけを表示。リセットして、displayTextが「0.」または「-0.」の場合、displaytextに追加
             // その以外、2番目の数値以上をクリックして、displayTextに追加される
             if (displayText.Text == "0" || ClearCheck == true || displayText.Text == "NaN")
             {
                 if (ClearCheck == true && (displayText.Text == "0." || displayText.Text == "-0."))
                 {
-                    displayText.Text += number.Text;
+                    displayText.Text += numberText;
                     PointCheck = true;
                 }
                 else
                 {
-                    displayText.Text = number.Text;
+                    displayText.Text = numberText;
                 }
                 ClearCheck = false;
                 PointCheck = false;
             }
             else
             {
-                displayText.Text += number.Text;
+                displayText.Text += numberText;
             }
+        }
 
-            // 計算符号を押せるために、SelectCheckのfalseをセット
-            SelectCheck = false;
-
-            // 「＝」を押して後、数を押すと、後の計算のためその数値を取ります。
+        /// <summary>
+        /// 「＝」を押して後、数を押すと、後の計算のためその数値を取ります。
+        /// </summary>
+        private void CheckNumberAfterEqual()
+        {
             if (PressedEqualCheck == true)
             {
                 PressNumberAfterEqualCheck = true;
@@ -114,9 +132,18 @@ namespace Calculator2
         private void SignButtonClicked(object sender, EventArgs e)
         {
             double number;
-            number = Double.Parse(displayText.Text) ;
+            number = Double.Parse(displayText.Text);
 
             // 記号ボタンを押すと、数字は普通に符号を変えります。
+            DisplayNegative(number);
+        }
+
+        /// <summary>
+        /// 普通に符号を変えります。
+        /// </summary>
+        /// <param name="number">数値</param>
+        private void DisplayNegative(double number)
+        {
             if (PointCheck == false)
             {
                 number *= (-1);
@@ -142,12 +169,22 @@ namespace Calculator2
             double number;
             number = (Double.Parse(displayText.Text) / 100.0);
 
+            // 数値を表示
+            DisplayPercentNumber(number);
+        }
+
+        /// <summary>
+        /// パーセントを押して数値を表示
+        /// </summary>
+        /// <param name="number">数値</param>
+        private void DisplayPercentNumber(double number)
+        {
             // 小数点以下の桁数に基づいて 10 進数をフォーマット
             if (Math.Abs(number) < 1E-10)
             {
-                displayText.Text = number.ToString("G10");              
+                displayText.Text = number.ToString("G10");
             }
-            else 
+            else
             {
                 displayText.Text = number.ToString("F20").TrimEnd('0').TrimEnd('.');
             }
@@ -196,9 +233,9 @@ namespace Calculator2
                         {
                             PointCheck = false;
                         }
-                    }                    
+                    }
                 }
-            }            
+            }
         }
 
         /// <summary>
@@ -209,7 +246,7 @@ namespace Calculator2
         private void PointButtonClicked(object sender, EventArgs e)
         {
             Button pointBtn = (Button)sender;
-            
+
             // displayTextで「E」がある場合、結果が表示される場合、PointButtonは無効
             if (!displayText.Text.Contains("E") && PressedEqualCheck == false)
             {
@@ -276,7 +313,7 @@ namespace Calculator2
                 PressedEqualCheck = false;
             }
         }
-        
+
         /// <summary>
         /// = 符号をクリック
         /// </summary>
@@ -290,94 +327,85 @@ namespace Calculator2
                 displayText.Text = "0";
                 EnableButtons();
                 ClearCheck = true;
-                PressedEqualCheck = false; 
+                PressedEqualCheck = false;
             }
             else
             {
-                // 「＝」を一回だけ押すと、普通に計算して、2回以上押すと、連続計算します。
+                // 「＝」を一回だけ押すと、計算して、2回以上押すと、連続計算します。
                 if (PressedEqualCheck == false)
                 {
-                    // 計算符号を押す場合、普通に計算します。計算符号を押さないい場合、入力した数を表示
-                    if (Calc == "+" || Calc == "-" || Calc == "x" || Calc == "/")
-                    {
-                        PerformCalculation(Calc);
-                        SelectCheck = false;
-                        ClearCheck = true;
-                        NextCalc = Calc;
-                        Calc = "";
-                        PressedEqualCheck = true;
-                        PressNumberAfterEqualCheck = false;
-                    }
-                    else
-                    {
-                        Num1 = double.Parse(displayText.Text);
-                        displayText.Text = Num1.ToString();
-                        ClearCheck = true;
-                        PressedEqualCheck = false;
-                    }
+                    // 計算
+                    Calculate();
                 }
                 else
-                {     
-                    // 複数の「＝」を押すと、数ボタンを押さない場合、普通に計算します。数ボタンを押す場合、たった今押した数値と計算し続きます。
-                    if (PressNumberAfterEqualCheck == false)
-                    {
-                        PerformEqualCalculation(NextCalc, Num2);
-                        PressedEqualCheck = true;
-                        PressNumberAfterEqualCheck = true;
-                    }
-                    else
-                    {
-                        Num1 = double.Parse(displayText.Text);
-                        PerformEqualCalculation(NextCalc, Num2);
-                        PressedEqualCheck = true;
-                    }
-                }                
-            }             
+                {
+                    // 連続計算
+                    CalculateContinious();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 計算メソッド
+        /// </summary>
+        private void Calculate()
+        {
+            // 計算符号を押す場合、普通に計算します。計算符号を押さないい場合、入力した数を表示
+            if (Calc == "+" || Calc == "-" || Calc == "x" || Calc == "/")
+            {
+                PerformCalculation(Calc);
+                SelectCheck = false;
+                ClearCheck = true;
+                NextCalc = Calc;
+                Calc = "";
+                PressedEqualCheck = true;
+                PressNumberAfterEqualCheck = false;
+            }
+            else
+            {
+                Num1 = double.Parse(displayText.Text);
+                displayText.Text = Num1.ToString();
+                ClearCheck = true;
+                PressedEqualCheck = false;
+            }
+        }
+
+        /// <summary>
+        /// 連続計算
+        /// </summary>
+        private void CalculateContinious()
+        {
+            // 複数の「＝」を押すと、数ボタンを押さない場合、普通に計算します。数ボタンを押す場合、たった今押した数値と計算し続きます。
+            if (PressNumberAfterEqualCheck == false)
+            {
+                PerformEqualCalculation(NextCalc, Num2);
+                PressedEqualCheck = true;
+                PressNumberAfterEqualCheck = true;
+            }
+            else
+            {
+                Num1 = double.Parse(displayText.Text);
+                PerformEqualCalculation(NextCalc, Num2);
+                PressedEqualCheck = true;
+            }
         }
 
         /// <summary>
         /// 計算メソッド
         /// </summary>
         /// <param name="Calc">計算符号</param>
-        private void PerformCalculation (string Calc)
+        private void PerformCalculation(string Calc)
         {
             // エラーがない場合、計算します。
             if (displayText.Text != "NaN")
             {
                 Num2 = double.Parse(displayText.Text);
-                switch (Calc)
-                {
-                    case "+":
-                        Num1 += Num2;
-                        break;
-                    case "-":
-                        Num1 -= Num2;
-                        break;
-                    case "x":
-                        Num1 *= Num2;
-                        break;
-                    case "/":
-                        if (Num2 != 0)
-                        {
-                            Num1 /= Num2;
-                        }
 
-                        // num 1 = 0 の場合、エラーが発生
-                        else
-                        {
-                            Num1 = double.NaN;
-                            Num2 = double.NaN;
-                            displayText.Text = "NaN";
-                            DisableButtons();
-                        }
-                        break;
-                    default:
-                        Num1 = Num2;
-                        break;
-                }
-                displayText.Text = Convert.ToString(Num1);
-                ClearCheck = true;
-                SelectCheck = false;
+                // 計算します。
+                PerformOperation(Calc);
+
+                // 結果を表示
+                DisplayResult();
             }
         }
 
@@ -391,40 +419,60 @@ namespace Calculator2
             // エラーがない場合、計算します。
             if (displayText.Text != "NaN")
             {
-                switch (NextCalc)
-                {
-                    case "+":
-                        Num1 += Num2;
-                        break;
-                    case "-":
-                        Num1 -= Num2;
-                        break;
-                    case "x":
-                        Num1 *= Num2;
-                        break;
-                    case "/":
-                        if (Num2 != 0)
-                        {
-                            Num1 /= Num2;
-                        }
+                // 計算します。
+                PerformOperation(NextCalc);
 
-                        // num 1 = 0 の場合、エラーが発生
-                        else
-                        {
-                            Num1 = double.NaN;
-                            Num2 = double.NaN;
-                            displayText.Text = "NaN";
-                            DisableButtons();
-                        }
-                        break;
-                    default:
-                        Num1 = Num2;
-                        break;
-                }
-                displayText.Text = Convert.ToString(Num1);
-                ClearCheck = true;
-                SelectCheck = false;
+                // 結果を表示
+                DisplayResult();
             }
+        }
+
+        /// <summary>
+        /// 計算するメソッド
+        /// </summary>
+        /// <param name="operation">計算符号</param>
+        private void PerformOperation(string operation)
+        {
+            switch (operation)
+            {
+                case "+":
+                    Num1 += Num2;
+                    break;
+                case "-":
+                    Num1 -= Num2;
+                    break;
+                case "x":
+                    Num1 *= Num2;
+                    break;
+                case "/":
+                    if (Num2 != 0)
+                    {
+                        Num1 /= Num2;
+                    }
+
+                    // num 1 = 0 の場合、エラーが発生
+                    else
+                    {
+                        Num1 = double.NaN;
+                        Num2 = double.NaN;
+                        displayText.Text = "NaN";
+                        DisableButtons();
+                    }
+                    break;
+                default:
+                    Num1 = Num2;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 結果を表示
+        /// </summary>
+        private void DisplayResult()
+        {
+            displayText.Text = Convert.ToString(Num1);
+            ClearCheck = true;
+            SelectCheck = false;
         }
 
         /// <summary>
@@ -433,7 +481,7 @@ namespace Calculator2
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void DisplayTextChanged(object sender, EventArgs e)
-        {      
+        {
             const int maxLength = 15;
             string text = displayText.Text;
             double result = double.Parse(displayText.Text);
@@ -466,21 +514,21 @@ namespace Calculator2
             else
             {
                 displayText.Text = "NaN";
-                DisableButtons() ;
+                DisableButtons();
             }
         }
-        
+
         /// <summary>
         /// エラーが発生された場合、いつかボタンは無効化にするメソッド
         /// </summary>
         private void DisableButtons()
         {
-            percentButton.Enabled = false;            
+            percentButton.Enabled = false;
             pointButton.Enabled = false;
             signButton.Enabled = false;
             addButton.Enabled = false;
             subtractButton.Enabled = false;
-            multiplyButton.Enabled = false; 
+            multiplyButton.Enabled = false;
             devideButton.Enabled = false;
         }
 
