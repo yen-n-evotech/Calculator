@@ -28,27 +28,27 @@ namespace Calculator2
         /// <summary>
         /// 計算符号を選択するか確認
         /// </summary>
-        private bool SelectCheck = false;
+        private bool IsOperationSelected = false;
 
         /// <summary>
         /// 計算のリセットするか確認
         /// </summary>
-        private bool ClearCheck = false;
+        private bool IsCleared = false;
 
         /// <summary>
         /// 点があるか確認
         /// </summary>
-        private bool PointCheck = false;
+        private bool IsExitPoint = false;
 
         /// <summary>
         /// 「=」という符号をクリックするか確認
         /// </summary>
-        private bool PressedEqualCheck = false;
+        private bool IsEqualPressed = false;
 
         /// <summary>
         /// 連続計算で「＝」の後NumberButtonをクリックするか確認
         /// </summary>
-        private bool PressNumberAfterEqualCheck = false;
+        private bool IsNumberPressedAfterEqual = false;
 
         /// <summary>
         /// 電卓クラスを初期化
@@ -74,11 +74,11 @@ namespace Calculator2
             // displayTextに数値を追加して変更
             UpdateDisplayText(number.Text);
 
-            // 計算符号を押せるために、SelectCheckのfalseをセット
-            SelectCheck = false;
+            // 計算符号を押せるために、IsOperationSelectedのfalseをセット
+            IsOperationSelected = false;
 
             // 「＝」を押して後、数を押すと、後の計算のためその数値を取ります。
-            CheckNumberAfterEqual();
+            GetNumberAfterEqual();
         }
 
         /// <summary>
@@ -89,19 +89,19 @@ namespace Calculator2
         {
             // デフォルトの場合、リセットの場合、エラーの場合、クリックした数値だけを表示。リセットして、displayTextが「0.」または「-0.」の場合、displaytextに追加
             // その以外、2番目の数値以上をクリックして、displayTextに追加される
-            if (displayText.Text == "0" || ClearCheck == true || displayText.Text == "NaN")
+            if (displayText.Text == "0" || IsCleared == true || displayText.Text == "NaN")
             {
-                if (ClearCheck == true && (displayText.Text == "0." || displayText.Text == "-0."))
+                if (IsCleared == true && (displayText.Text == "0." || displayText.Text == "-0."))
                 {
                     displayText.Text += numberText;
-                    PointCheck = true;
+                    IsExitPoint = true;
                 }
                 else
                 {
                     displayText.Text = numberText;
                 }
-                ClearCheck = false;
-                PointCheck = false;
+                IsCleared = false;
+                IsExitPoint = false;
             }
             else
             {
@@ -112,15 +112,16 @@ namespace Calculator2
         /// <summary>
         /// 「＝」を押して後、数を押すと、後の計算のためその数値を取ります。
         /// </summary>
-        private void CheckNumberAfterEqual()
+        private void GetNumberAfterEqual()
         {
-            if (PressedEqualCheck == true)
+            // 「＝」を押して後、数を入力できます。数を押すと、後の計算のためその数値を取ります。
+            if (IsEqualPressed == true)
             {
-                PressNumberAfterEqualCheck = true;
+                IsNumberPressedAfterEqual = true;
             }
             else
             {
-                PressedEqualCheck = false;
+                IsEqualPressed = false;
             }
         }
 
@@ -144,7 +145,7 @@ namespace Calculator2
         /// <param name="number">数値</param>
         private void DisplayNegative(double number)
         {
-            if (PointCheck == false)
+            if (IsExitPoint == false)
             {
                 number *= (-1);
                 displayText.Text = number.ToString();
@@ -192,7 +193,7 @@ namespace Calculator2
             // 結果は0と違ったら、小数です。その場合、もう一度点符号を追加できません。
             if (number != 0)
             {
-                PointCheck = true;
+                IsExitPoint = true;
             }
             else
             {
@@ -207,7 +208,7 @@ namespace Calculator2
         /// <param name="e"></param>
         private void DelButtonClicked(object sender, EventArgs e)
         {
-            if (PressedEqualCheck == false && !displayText.Text.Contains("E"))
+            if (IsEqualPressed == false && !displayText.Text.Contains("E"))
             {
                 // エラーの場合、Delボタンを押すと、リセットになります。他の場合、最初の文字を削除します。
                 if (displayText.Text == "NaN")
@@ -221,7 +222,7 @@ namespace Calculator2
                     if (displayText.Text.Length == 1 || ((displayText.Text.Contains("-") && displayText.Text.Length == 2)))
                     {
                         displayText.Text = "0";
-                        PointCheck = false;
+                        IsExitPoint = false;
                     }
                     else
                     {
@@ -231,7 +232,7 @@ namespace Calculator2
                         // 削除したら、結果は点がない場合、もう一度点を追加できます。
                         if (!displayText.Text.Contains("."))
                         {
-                            PointCheck = false;
+                            IsExitPoint = false;
                         }
                     }
                 }
@@ -248,17 +249,17 @@ namespace Calculator2
             Button pointBtn = (Button)sender;
 
             // displayTextで「E」がある場合、結果が表示される場合、PointButtonは無効
-            if (!displayText.Text.Contains("E") && PressedEqualCheck == false)
+            if (!displayText.Text.Contains("E") && IsEqualPressed == false)
             {
                 // displayTextは点がまだない場合、点を追加できます。
                 if (!displayText.Text.Contains("."))
                 {
                     displayText.Text += pointBtn.Text;
-                    PointCheck = true;
+                    IsExitPoint = true;
                 }
                 else
                 {
-                    PointCheck = true;
+                    IsExitPoint = true;
                 }
             }
         }
@@ -275,13 +276,13 @@ namespace Calculator2
             displayText.Text = "0";
             Num1 = 0;
             Num2 = 0;
-            PointCheck = false;
+            IsExitPoint = false;
             Calc = "";
             NextCalc = "";
-            SelectCheck = false;
-            PressedEqualCheck = false;
-            PressNumberAfterEqualCheck = false;
-            ClearCheck = true;
+            IsOperationSelected = false;
+            IsEqualPressed = false;
+            IsNumberPressedAfterEqual = false;
+            IsCleared = true;
         }
 
         /// <summary>
@@ -294,23 +295,23 @@ namespace Calculator2
             Button btn = (Button)sender;
 
             // displayTextはエラーない場合、空ない場合、計算できます。
-            if (displayText.Text != "" && displayText.Text != "NaN")
+            if (displayText.Text != "NaN")
             {
                 // 計算が選択されているかどうかを確認。
-                // SelectCheck が false の場合、計算が選択されていないことを意味するため、計算ボタンが押されると、現在の結果 (存在する場合) と新しい演算子を使用して計算が実行されます。
-                // SelectCheck が true の場合、選択された計算がすでに存在することを意味するため、新しい計算ボタンを押すと、古い演算子が新しい演算子で上書きされます。
-                if (SelectCheck == false)
+                // IsOperationSelected が false の場合、計算が選択されていないことを意味するため、計算ボタンが押されると、現在の結果 (存在する場合) と新しい演算子を使用して計算が実行されます。
+                // IsOperationSelected が true の場合、選択された計算がすでに存在することを意味するため、新しい計算ボタンを押すと、古い演算子が新しい演算子で上書きされます。
+                if (IsOperationSelected == false)
                 {
                     PerformCalculation(Calc);
                     Calc = btn.Text;
-                    SelectCheck = true;
-                    //ClearCheck = true;
+                    IsOperationSelected = true;
+                    //IsCleared = true;
                 }
                 else
                 {
                     Calc = btn.Text;
                 }
-                PressedEqualCheck = false;
+                IsEqualPressed = false;
             }
         }
 
@@ -326,13 +327,13 @@ namespace Calculator2
             {
                 displayText.Text = "0";
                 EnableButtons();
-                ClearCheck = true;
-                PressedEqualCheck = false;
+                IsCleared = true;
+                IsEqualPressed = false;
             }
             else
             {
                 // 「＝」を一回だけ押すと、計算して、2回以上押すと、連続計算します。
-                if (PressedEqualCheck == false)
+                if (IsEqualPressed == false)
                 {
                     // 計算
                     Calculate();
@@ -354,19 +355,19 @@ namespace Calculator2
             if (Calc == "+" || Calc == "-" || Calc == "x" || Calc == "/")
             {
                 PerformCalculation(Calc);
-                SelectCheck = false;
-                ClearCheck = true;
+                IsOperationSelected = false;
+                IsCleared = true;
                 NextCalc = Calc;
                 Calc = "";
-                PressedEqualCheck = true;
-                PressNumberAfterEqualCheck = false;
+                IsEqualPressed = true;
+                IsNumberPressedAfterEqual = false;
             }
             else
             {
                 Num1 = double.Parse(displayText.Text);
                 displayText.Text = Num1.ToString();
-                ClearCheck = true;
-                PressedEqualCheck = false;
+                IsCleared = true;
+                IsEqualPressed = false;
             }
         }
 
@@ -376,17 +377,17 @@ namespace Calculator2
         private void CalculateContinious()
         {
             // 複数の「＝」を押すと、数ボタンを押さない場合、普通に計算します。数ボタンを押す場合、たった今押した数値と計算し続きます。
-            if (PressNumberAfterEqualCheck == false)
+            if (IsNumberPressedAfterEqual == false)
             {
                 PerformEqualCalculation(NextCalc, Num2);
-                PressedEqualCheck = true;
-                PressNumberAfterEqualCheck = true;
+                IsEqualPressed = true;
+                IsNumberPressedAfterEqual = true;
             }
             else
             {
                 Num1 = double.Parse(displayText.Text);
                 PerformEqualCalculation(NextCalc, Num2);
-                PressedEqualCheck = true;
+                IsEqualPressed = true;
             }
         }
 
@@ -471,8 +472,8 @@ namespace Calculator2
         private void DisplayResult()
         {
             displayText.Text = Convert.ToString(Num1);
-            ClearCheck = true;
-            SelectCheck = false;
+            IsCleared = true;
+            IsOperationSelected = false;
         }
 
         /// <summary>
